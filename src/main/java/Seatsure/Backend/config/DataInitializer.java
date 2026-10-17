@@ -5,21 +5,24 @@ import Seatsure.Backend.enums.Role;
 import Seatsure.Backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@ConditionalOnProperty(
+        name = "app.seed-admin.enabled",
+        havingValue = "true"
+)
 public class DataInitializer implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-
     @Override
-    public void run(String... args){
-
-         String adminEmail = "admin@seatsure.com";
+    public void run(String... args) {
+        String adminEmail = "admin@seatsure.com";
 
         if (userRepository.existsByEmail(adminEmail)) {
             return;
@@ -35,6 +38,5 @@ public class DataInitializer implements CommandLineRunner {
         userRepository.save(admin);
 
         System.out.println("Default admin user created.");
-
     }
 }
