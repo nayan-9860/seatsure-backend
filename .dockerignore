@@ -1,0 +1,19 @@
+
+# Git history and configuration
+.git
+.github
+
+# Environment files and secrets
+.env
+.env.*
+
+# Local build output
+target/
+
+# IDE files
+.idea/
+*.iml
+
+# Local development files
+.DS_Store
+cp.txt
